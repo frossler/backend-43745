@@ -1,4 +1,3 @@
-
 // CLASS
 class ProductManager {
     constructor() {
@@ -20,21 +19,24 @@ class ProductManager {
             return null;
         }
     }
-    
-
-    validateProductId(id){
-        return this.products.some(e=>e.id === id);  
+    validateProductId(id) {
+        return this.products.some(e => e.id === id);
     }
-
+    validateProductCode(code) {
+        return this.products.some(e => e.code === code);
+    }
     addProduct(product) {
-        const mandatoryKeys = ['title', 'description', 'price', 'thumbnail', 'stock'];
+        const mandatoryKeys = ['title', 'description', 'price', 'thumbnail', 'code', 'stock'];
         const missingKeys = mandatoryKeys.filter((key) => !product.hasOwnProperty(key));
-    
+
         if (missingKeys.length > 0) {
             console.error('ERROR: Product is missing mandatory keys:', missingKeys);
             return false;
         } else if (this.validateProductId(product.id)) {
             console.error('ERROR: Product ID already exists');
+            return false;
+        } else if (this.validateProductCode(product.code)) {
+            console.error('ERROR: Product CODE already exists');
             return false;
         } else {
             product.id = this.idMax++;
@@ -43,32 +45,19 @@ class ProductManager {
             return true;
         }
     }
-    
-
 }
-
-// FOO UUID from StackOverflow for auto-generated IDs. 
-// function generateUUID() {
-//     var d = new Date().getTime();
-//     var uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-//         var r = (d + Math.random() * 16) % 16 | 0;
-//         d = Math.floor(d / 16);
-//         return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-//     });
-//     return uuid;
-// }
-
 
 ////////////////////// TESTS //////////////////////////
 const instance1 = new ProductManager();
 
-//  console.log(instance1.getProducts());
+console.log(instance1.getProducts());
 
 instance1.addProduct({
     title: "Test Product",
     description: "Test description",
     price: 200, 
     thumbnail: "http://not-available-for-now",
+    code: "0001",
     stock: 25,
     }
 );
@@ -78,6 +67,7 @@ instance1.addProduct({
     description: "Test description 2",
     price: 200, 
     thumbnail: "http://not-available-for-now",
+    code: "0002",
     stock: 25
     }
 );
@@ -87,6 +77,7 @@ instance1.addProduct({
     description: "Test description 3",
     price: 200, 
     thumbnail: "http://not-available-for-now",
+    code: "0003",
     stock: 25
     }
 );
@@ -96,6 +87,7 @@ instance1.addProduct({
     description: "Test description 4",
     price: 200, 
     thumbnail: "http://not-available-for-now",
+    code: "0004",
     stock: 25,
     id: 0
     }
@@ -106,7 +98,18 @@ instance1.addProduct({
     description: "Test description 5",
     }
 );
+// CODE already exists
+instance1.addProduct({
+    title: "Test Product 6",
+    description: "Test description 6",
+    price: 200, 
+    thumbnail: "http://not-available-for-now",
+    code: "0002",
+    stock: 25,
+    }
+);
 
 instance1.getProductById(0)
 instance1.getProductById(999) // ID not found
+
 // console.log(instance1.getProducts())
