@@ -121,33 +121,33 @@ export class ProductManager {
 }
 
 //    Instance 
-const productManager = new ProductManager();
+// const productManager = new ProductManager();
 
 //           Test Products 
-const product1 = {
-    title: "Sahumerios PALO SANTO",
-    description: "Aroma a palo santo triple bendición",
-    price: 200,
-    thumbnail: "http://not-available-for-now",
-    code: "0005",
-    stock: 25
-}
-const product2 = {
-    title: "Aceite para Masajes CBD",
-    description: "Aceite para realizar masajes con CBD",
-    price: 300,
-    thumbnail: "http://not-available-for-now",
-    code: "4578",
-    stock: 25
-}
-const product3 = {
-    title: "Sahumerio en Rama Sándalo Sagrado",
-    description: "Sahumerio en rama para partir con aroma a sándalo",
-    price: 100,
-    thumbnail: "http://not-available-for-now",
-    code: "1989",
-    stock: 25
-}
+// const product1 = {
+//     title: "Sahumerios PALO SANTO",
+//     description: "Aroma a palo santo triple bendición",
+//     price: 200,
+//     thumbnail: "http://not-available-for-now",
+//     code: "0005",
+//     stock: 25
+// }
+// const product2 = {
+//     title: "Aceite para Masajes CBD",
+//     description: "Aceite para realizar masajes con CBD",
+//     price: 300,
+//     thumbnail: "http://not-available-for-now",
+//     code: "4578",
+//     stock: 25
+// }
+// const product3 = {
+//     title: "Sahumerio en Rama Sándalo Sagrado",
+//     description: "Sahumerio en rama para partir con aroma a sándalo",
+//     price: 100,
+//     thumbnail: "http://not-available-for-now",
+//     code: "1989",
+//     stock: 25
+// }
 //    Test Methods Function 
 // const test = async () => {
     // console.log(await productManager.getProducts());
