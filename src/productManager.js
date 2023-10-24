@@ -6,6 +6,9 @@ export class ProductManager {
         this.idMax = 0;
     };
     //    Methods
+    async getLastId(products){
+
+    };
     async getProducts() {
         try {
             if (fs.existsSync(this.path)) {
@@ -32,27 +35,20 @@ export class ProductManager {
         try {
             const mandatoryKeys = ['title', 'description', 'price', 'thumbnail', 'code', 'stock'];
             const missingKeys = mandatoryKeys.filter((key) => !product.hasOwnProperty(key));
-
+    
             if (missingKeys.length > 0) {
                 console.error('ERROR: Product is missing mandatory keys:', missingKeys);
                 return false;
             }
-
+    
             const products = await this.getProducts();
-
-            if (products.some(prod => prod.id === product.id)) {
-                console.error('ERROR: Product ID already exists');
-                throw new Error('Product ID already exists');
-            }
-
-            if (products.some(prod => prod.code === product.code)) {
-                console.error('ERROR: Product CODE already exists');
-                throw new Error('Product CODE already exists');
-            }
-
-            product.id = this.idMax++;
+    
+            const lastProduct = products[products.length - 1];
+            const newId = lastProduct ? lastProduct.id + 1 : 1;
+    
+            product.id = newId;
             products.push(product);
-
+    
             await fs.promises.writeFile(this.path, JSON.stringify(products));
             console.log('SUCCESS: Product added and persisted successfully');
             return true;
@@ -60,7 +56,7 @@ export class ProductManager {
             console.error('ERROR: Failed to add the product:', error);
             return false;
         }
-    };
+    }
     async getProductById(id) {
         const products = await this.getProducts();
         const product = products.find((p) => p.id === id);
@@ -119,40 +115,3 @@ export class ProductManager {
         }
     };
 }
-
-//    Instance 
-// const productManager = new ProductManager();
-
-//           Test Products 
-// const product1 = {
-//     title: "Sahumerios PALO SANTO",
-//     description: "Aroma a palo santo triple bendición",
-//     price: 200,
-//     thumbnail: "http://not-available-for-now",
-//     code: "0005",
-//     stock: 25
-// }
-// const product2 = {
-//     title: "Aceite para Masajes CBD",
-//     description: "Aceite para realizar masajes con CBD",
-//     price: 300,
-//     thumbnail: "http://not-available-for-now",
-//     code: "4578",
-//     stock: 25
-// }
-// const product3 = {
-//     title: "Sahumerio en Rama Sándalo Sagrado",
-//     description: "Sahumerio en rama para partir con aroma a sándalo",
-//     price: 100,
-//     thumbnail: "http://not-available-for-now",
-//     code: "1989",
-//     stock: 25
-// }
-//    Test Methods Function 
-// const test = async () => {
-    // console.log(await productManager.getProducts());
-    // await productManager.addProduct(product1);
-    // await productManager.addProduct(product2);
-    // await productManager.addProduct(product3);
-// }
-// test();
