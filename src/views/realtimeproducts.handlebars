@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <h1 class="title">Products</h1>
+    <div class="main_container">
+        <div class="formulario">
+            <form onsubmit="formSent(event)">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required /><br /><br />
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea><br /><br />
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required /><br /><br />
+
+                <label for="thumbnails">Thumbnails:</label>
+                <input type="text" id="thumbnails" name="thumbnails" required /><br /><br />
+
+                <label for="code">Code:</label>
+                <input type="text" id="code" name="code" required /><br /><br />
+
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" required /><br /><br />
+
+                <input type="submit" value="Enviar" />
+            </form>
+        </div>
+
+        <div class="productos">
+            <div class="container">
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+
+    <script>
+        const formSent = (event) => {
+            event.preventDefault();
+            const productForm = document.querySelector("form");
+            const formData = new FormData(productForm);
+            const title = formData.get('title')
+            const description = formData.get('description')
+            const price = formData.get('price')
+            const thumbnails = formData.get('thumbnails')
+            const code = formData.get('code')
+            const stock = formData.get('stock')
+            const product = { title, description, price, thumbnails, code, stock }
+
+            fetch('/api/products', {
+                method: "POST",
+                body: JSON.stringify(product),
+                headers: { "Content-type": "application/json" }
+            })
+                .then(response => {
+                    console.log(response.json())
+                })
+                .catch(error => {
+                    console.log("Error >>> " + error)
+                });
+        };
+    </script>
+
+
+</body>
+
+</html>
