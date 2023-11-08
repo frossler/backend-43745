@@ -1,7 +1,8 @@
 import express from "express";
 import productsRouter from "./routes/products.router.js";
-import productsinrealtimeRouter from "./routes/productsinrealtime.router.js";
 import cartsRouter from "./routes/carts.router.js";
+import productsinrealtimeRouter from "./routes/productsinrealtime.router.js";
+import homeRouter from "./routes/home.router.js";
 import { Server } from "socket.io";
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/realtimeproducts", productsinrealtimeRouter); // WebSocket
+app.use("/home", homeRouter); // Home
 
 socketServer.on("connection", async (socket) => {
     console.log("New Connection ON");

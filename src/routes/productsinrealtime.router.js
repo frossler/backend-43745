@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     res.render('realtimeproducts', {
-        title: "Real Time Product View",
+        title: "Real Time Products View",
         style: 'index.css' 
     });
 });
