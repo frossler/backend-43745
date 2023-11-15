@@ -6,7 +6,7 @@
   }
   .container {
     justify-content: center;
-    margin: 0 auto;
+    margin: 0  auto;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -26,7 +26,7 @@
   .product h3 {
     font-size: 20px;
     margin: 0;
-    color: #333;
+    color: rgb(1, 96, 238)
   }
   
   .product p {
@@ -45,10 +45,10 @@
   
   .product p:last-child {
     font-size: 18px;
-    color: #ff6600;
+    color: #00b95d;
   }
   .product:hover {
-    transform: scale(1.05); /* Escalamos el elemento al 105% en el hover */
+    transform: scale(1.05); /* Smooth Effect */
   }
   
   body {
